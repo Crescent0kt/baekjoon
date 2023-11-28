@@ -1,14 +1,14 @@
 def solution(participant, completion):
     dict = {}
-    for person in participant:
-
-        if person in dict:
-            dict[person] += 1
-        else : dict[person] = 1
+    for p in participant:
+        if p in dict:
+            dict[p] +=1
+        else:
+            dict[p] =1
+            
+    for c in completion:
+        dict[c] -= 1
     
-    for person in completion:
-        dict[person] -= 1
-    
-    for key,val in dict.items():
-        if val != 0:
+    for key in dict.keys():
+        if dict[key] != 0:
             return key

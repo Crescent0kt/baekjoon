@@ -1,29 +1,31 @@
-from collections import deque
-N = int(input())
+import sys
 
-graph = [[] for _ in range(N+1)]
+N = int(sys.stdin.readline())
+M = int(sys.stdin.readline())
 
-#순서쌍을 만들어줌(그래프)
-for _ in range(int(input())):
-    a,b = map(int,input().split())
-    graph[a].append(b)
-    graph[b].append(a)
+conn = {}
+for _ in range(M):
+    a,b = map(int, sys.stdin.readline().split())
+    if a not in conn:
+        conn[a] = [b]
+    else:
+        conn[a].append(b)
+    if b not in conn:
+        conn[b] = [a]
+    else:
+        conn[b].append(a)
+stack = []
+visited = [0] * (N+1)
 
-visited = [False] * (N+1)
+stack.append(1)
+visited[1] = 1
 
-Q = deque()
+while stack:
+    num = stack.pop()
+    if num in conn:
+        for con in conn[num]:
+            if visited[con] ==0:
+                visited[con] += 1
+                stack.append(con)
 
-visited[1] = True
-Q.append(1)
-count = 0
-
-while len(Q) != 0:
-    x = Q.popleft()
-    count += 1
-
-    for i in graph[x]:
-        if visited[i] == False:
-            visited[i] = True
-            Q.append(i)
-
-print(count - 1)
+print(sum(visited)-1)

@@ -1,20 +1,27 @@
 import sys
 
 N = int(sys.stdin.readline())
+req = list(map(int, sys.stdin.readline().split()))
+budget = int(sys.stdin.readline())
 
-pay = list(map(int, sys.stdin.readline().split()))
+l, r = 0, max(req)
+ans = 0
 
-money = int(sys.stdin.readline())
+while l<=r:
+    mid = (l+r)//2
+    count = 0
 
-pay.sort()
+    for i in range(len(req)):
+        if req[i] < mid:
+            count += req[i]
+        else:
+            count += mid
 
-max_num = 0
-for i,p in enumerate(pay):
-    if p > money/(N-i):
-        max_num = money//(N-i)
-        break
+    if count<=budget:
+        ans = max(mid,ans)
+        l = mid+1
     else:
-        max_num = p
-    money = money - max_num
+        r = mid -1
 
-print(max_num)
+
+print(ans)

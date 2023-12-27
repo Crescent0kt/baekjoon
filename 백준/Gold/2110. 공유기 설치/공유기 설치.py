@@ -1,29 +1,29 @@
 import sys
+#k개의 랜선 -> n개로 만들고 싶어요
+n, c = map(int, sys.stdin.readline().split())
 
-n,c = map(int, sys.stdin.readline().split())
-
-arr = []
+house = []
 for _ in range(n):
-    arr.append(int(sys.stdin.readline()))
+    house.append(int(sys.stdin.readline()))
 
-arr.sort()
+house.sort()
 
-start = 1
-end = arr[-1] - arr[0]
-result = 0
+#공유기 최소 거리 1, 최대 거리 max - min
+l, r = 1, house[-1] - house[0]
+ans = 0
 
-while start<=end:
-    mid = (start + end) //2
-    value = arr[0]
-    #공유기 설치 수
+while l<=r:
+    mid = (l+r)//2
     count = 1
+    a = 0
     for i in range(1,n):
-        if arr[i]>=value + mid:
-            value = arr[i]
-            count += 1
-    if count>= c:
-        start = mid+1
-        result = mid
+        if house[i] - house[a]>= mid:
+            count +=1
+            a = i
+
+    if count>=c:
+        ans = max(ans, mid)
+        l = mid+1
     else:
-        end = mid -1
-print(result)
+        r = mid-1
+print(ans)

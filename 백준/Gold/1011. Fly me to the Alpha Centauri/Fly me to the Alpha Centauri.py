@@ -3,20 +3,21 @@ import sys
 T = int(sys.stdin.readline())
 
 for _ in range(T):
-    start, end = map(int,sys.stdin.readline().split())
-    distance = end- start
-    max_num = 1
-    count = 0
-    while distance>=2*max_num:
-        distance = distance - (2*max_num)
-        count = count+2
-        max_num = max_num+1
-
-    while distance:
-        if max_num<=distance:
-            count = count+1
-            distance = distance-max_num
+    x,y = map(int,sys.stdin.readline().split())
+    dist = y-x
+    i=1
+    ans = 0
+    #1. 대칭 이동
+    while 2*i <= dist:
+        ans += 2
+        dist = dist - 2 * i
+        i += 1
+    #단일이동
+    while dist > 0:
+        if i > dist:
+            i-=1
         else:
-            max_num = max_num-1
+            dist = dist - i
+            ans += 1
 
-    print(count)
+    print(ans)

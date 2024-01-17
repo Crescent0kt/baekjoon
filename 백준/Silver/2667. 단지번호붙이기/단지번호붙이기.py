@@ -2,40 +2,35 @@ import sys
 
 N = int(sys.stdin.readline())
 
-apart = []
-count = 0
-num_apart = []
-dx = [-1,0,1,0]
-dy = [0,-1,0,1]
-
-
-# 아파트 상태 확인
+arr = []
 for _ in range(N):
-    apart.append(list(sys.stdin.readline().rstrip()))
+    arr.append(list(sys.stdin.readline().rstrip()))
 
-
+ans = []
+dx = [0,-1,0,1]
+dy = [-1,0,1,0]
 
 for i in range(N):
     for j in range(N):
-        if apart[i][j] == "0": continue
-        else:
-            count += 1
-            num = 1
-            #x,y 순서
-            stack = [(i, j)]
-            apart[i][j] = "0"
-            while stack:
-                cy, cx = stack.pop()
-                for k in range(4):
-                    y = cy + dy[k]
-                    x = cx + dx[k]
-                    if 0 <= x  and x < N and 0 <= y and y < N :
-                        if apart[y][x] != "0":
-                            num +=1
-                            stack.append((y,x))
-                            apart[y][x] = "0"
-            num_apart.append(num)
-print(count)
-num_apart.sort()
-for i in num_apart:
-    print(i)
+        if arr[i][j] == "0":
+            continue
+        count = 1
+        stack = [(i,j)]
+        arr[i][j] = "0" 
+        while stack:
+            y,x = stack.pop()
+            
+            for k in range(4):
+                cx = x + dx[k]
+                cy = y + dy[k]
+
+                if 0<=cx and cx<N and 0<=cy and cy < N and arr[cy][cx] == "1":
+                    arr[cy][cx] = "0" 
+                    stack.append((cy,cx))
+                    count += 1
+        ans.append(count)
+
+print(len(ans))
+ans.sort()
+for a in ans:
+    print(a)

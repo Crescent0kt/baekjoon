@@ -1,25 +1,22 @@
 import sys
 
-n, m = map(int,sys.stdin.readline().split())
+N, M = map(int,sys.stdin.readline().split())
 
-arr = list(map(int,sys.stdin.readline().split()))
-
-# 설정할 최소, 최대 길이 -> 양이 늘어난다. r에 가까운게 정답
+woods = list(map(int,sys.stdin.readline().split()))
 l = 0
-r = max(arr)
+r = max(woods)
 
-ans = l
+ans = 0
 while l<=r:
     mid = (l+r)//2
-    count = 0
-    for i in range(n):
-        cut = arr[i] - mid if arr[i] - mid >0 else 0
-        count += cut
-    if count >= m:
+    sum_wood = 0
+    for wood in woods:
+        if wood - mid >0:
+            sum_wood += (wood-mid)
+    if M <= sum_wood:
         ans = max(ans, mid)
-        l = mid+1
+        l = mid + 1
     else:
-        r = mid - 1
+        r = mid -1
 
 print(ans)
-

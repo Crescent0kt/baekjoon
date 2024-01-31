@@ -1,31 +1,26 @@
 import sys
+from collections import defaultdict
 
 N = int(sys.stdin.readline())
 M = int(sys.stdin.readline())
 
-conn = {}
+arr = defaultdict(list)
+
 for _ in range(M):
-    a,b = map(int, sys.stdin.readline().split())
-    if a not in conn:
-        conn[a] = [b]
-    else:
-        conn[a].append(b)
-    if b not in conn:
-        conn[b] = [a]
-    else:
-        conn[b].append(a)
-stack = []
-visited = [0] * (N+1)
+    a,b = map(int,sys.stdin.readline().split())
+    arr[a].append(b)
+    arr[b].append(a)
 
-stack.append(1)
-visited[1] = 1
-
+stack = [1]
+visited = [False] * (N+1)
+visited[1] = True
+count = 0
 while stack:
-    num = stack.pop()
-    if num in conn:
-        for con in conn[num]:
-            if visited[con] ==0:
-                visited[con] += 1
-                stack.append(con)
+    node = stack.pop()
 
-print(sum(visited)-1)
+    for next_node in arr[node]:
+        if visited[next_node] == False:
+            visited[next_node] = True
+            stack.append(next_node)
+            count += 1
+print(count)

@@ -8,4 +8,4 @@ def solution(n):
             if q not in queens and p-q not in xy_dif and p+q not in xy_sum: 
                 result += dfs(queens+[q], xy_dif+[p-q], xy_sum+[p+q])
         return result
-    return dfs([], [], [])
+    return dfs([], [], []) 

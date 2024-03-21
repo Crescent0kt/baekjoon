@@ -1,13 +1,8 @@
 def solution(sizes):
-    max_small = 0
-    max_large = 0
-    
-    for i in sizes:
-        small,large = sorted(i)
+    mx1=0
+    mx2 = 0
+    for w,h in sizes:
+        mx1 = max(mx1,w,h)
+        mx2 = max(mx2,min(w,h))
         
-        if max_small < small:
-            max_small = small
-        if max_large < large:
-            max_large = large
-        
-    return max_small * max_large
+    return mx1 * mx2

@@ -1,14 +1,13 @@
-def solution(clothes):
-    a = {}
-    for _, cloth in clothes:
-        if cloth in a:
-            a[cloth] += 1
+def solution(clothes):    
+    answer = 1
+    dic = {}
+    for clo,category in clothes:
+        if category not in dic:
+            dic[category] = 1
         else:
-            a[cloth] = 1
-        count = 1
-    for i in a:
-        count *= (a[i] +1)
+            dic[category] += 1
     
+    for key in dic.keys():
+        answer = answer * (dic[key] + 1)
     
-    
-    return count-1
+    return answer -1

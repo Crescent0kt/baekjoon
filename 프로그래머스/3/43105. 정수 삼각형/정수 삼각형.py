@@ -1,17 +1,17 @@
 def solution(triangle):
-
-    N = len(triangle)
-    D = [0] * (N)
-    D[0] = triangle[0][0]
+    len_t = len(triangle)
+    arr = [0] * len_t
     
-    for i in range(1,N):
-        tmp = D[:i]
-        list = triangle[i]
-        D[0] = tmp[0] + list[0]
-        D[i] = tmp[i-1] + list[i]
+    for i, nums in enumerate(triangle):
+        if i == 0:
+            arr[0] = nums[0]
+            continue
         
-        for j in range(1,i):
-            D[j] = max(tmp[j-1],tmp[j]) + list[j]
-            
-    
-    return max(D)
+        arr[i] = arr[i-1] + nums[i]
+        
+        for j in range(i-1, 0, -1):
+            arr[j] = max(arr[j], arr[j-1]) + nums[j]
+
+        arr[0] = arr[0] + nums[0]
+    print(arr)
+    return max(arr)
